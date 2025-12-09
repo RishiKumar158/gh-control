@@ -2,18 +2,15 @@ name: matrix Demo
 on: push
 jobs:
   build:
-    continue-on-error: true
-    strategy:
-      matrix:
-        node-version: [12, 14, 16]
-        opertaing-system: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.opertaing-system }}
+    runs-on: ubuntu-latest
     steps:
       - name: Get Code
         uses: actions/checkout@v6
-      - name: Install NodeJS
-        uses: actions/setup-node@v6
+      - name: Install NodeJs
+        uses: actions/setup-node@v5
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
+          node-version: 14
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Project
         run: npm run build
